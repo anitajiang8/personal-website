@@ -108,3 +108,48 @@ body {
   background: var(--color-butter);
   color: var(--color-ink);
 }
+
+/* ── Clickable objects in the desk illustration ──────────── */
+.hotspot-wrap {
+  cursor: pointer;
+  outline: none;
+}
+.hotspot-art {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hotspot-wrap:hover .hotspot-art,
+.hotspot-wrap:focus-visible .hotspot-art {
+  transform: translateY(-6px) scale(1.06);
+}
+.hotspot-label {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.hotspot-wrap:hover .hotspot-label,
+.hotspot-wrap:focus-visible .hotspot-label {
+  opacity: 1;
+}
+/* Keyboard users get a visible ring; mouse users get the lift alone. */
+.hotspot-wrap:focus-visible .hotspot-art {
+  filter: drop-shadow(0 0 0 2px var(--color-ink));
+}
+.hotspot-wrap:focus-visible {
+  outline: 2px dashed var(--color-ink-faint);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+/* ── Overlay panels ──────────────────────────────────────── */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.panel-in { animation: panel-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.fade-in { animation: fade-in 0.25s ease both; }

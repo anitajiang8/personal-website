@@ -1,9 +1,13 @@
 # Personal portfolio
 
-A scrapbook-flavoured portfolio: warm paper background, serif display type,
-hand-drawn doodles, and project cards taped down at slight angles — but a
-clean, conventional layout underneath so it still reads as a serious
-engineering portfolio.
+A scrapbook-flavoured portfolio. Warm paper background, serif display type,
+hand-drawn doodles — but a clean layout underneath so it still reads as a
+serious engineering portfolio.
+
+It is **not a long scrolling page**. The site is one screen at a time: four
+tabs (`hello · work · about · contact`) swap the view, and the landing screen
+is an illustration of me surrounded by the things I enjoy — each object is
+clickable and opens a panel of real photos.
 
 Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind v4.
 
@@ -21,51 +25,74 @@ site. If a page loads but looks like the wrong project, check the port.
 
 ## Editing your content
 
-**Almost everything lives in [`content/site.ts`](content/site.ts).** You should
-not need to touch the components to keep the site up to date.
+**Almost everything lives in [`content/site.ts`](content/site.ts).**
 
 | What you want to change | Where |
 | --- | --- |
 | Name, headline, the landing blurb, status pill | `profile` |
 | Email, GitHub, LinkedIn | `links` |
 | Projects (add / remove / reorder) | `projects` |
-| Hobby tiles under "Off the clock" | `offTheClock` |
+| The clickable objects and their photos | `interests` |
 | The two About paragraphs | `aboutMe` |
 
-A few conventions:
+Conventions:
 
-- In `profile.headline`, any words wrapped in `{curly braces}` get the
-  yellow highlighter treatment. Keep it to one or two phrases.
+- In `profile.headline`, words wrapped in `{curly braces}` get the yellow
+  highlighter treatment. Keep it to one or two phrases.
 - Each project has an `accent` (`blue`, `coral`, `butter`, `sage`, `lilac`)
-  which tints its tape and tech chips, and a `tilt` in degrees. Keep tilt
-  between about -2 and 2 — the cards straighten on hover, and anything
-  steeper starts to look messy rather than deliberate.
-- Delete the `Placeholder Project` entries as you replace them. Three strong
-  projects beat five uneven ones.
+  tinting its tape and tech chips, and a `tilt` in degrees — keep it between
+  about -2 and 2. Cards straighten on hover; steeper just looks messy.
+- Project cards show a short blurb. The longer `detail` appears in the panel
+  that opens when the card is clicked, so it's fine to write a real paragraph.
 
-## Two files to drop in
+## Adding your photos
 
-Both are referenced but not committed, so add them before you share the link:
+This is the part that makes the landing screen yours.
 
-- `public/resume.pdf` — the nav and footer "resume" links point here.
-- `public/me.jpg` — then, in [`components/About.tsx`](components/About.tsx),
-  replace the placeholder `<div>` inside the polaroid with:
+1. Drop images into `public/photos/<id>/`, where `<id>` is one of
+   `cooking`, `fashion`, `crafts`, `sketching`, `code`.
+2. List them under that interest's `photos` in `content/site.ts`:
+   ```ts
+   photos: [{ src: "/photos/cooking/1.jpg", caption: "batch eleven" }],
+   ```
+
+A photo you've listed but not added yet shows a sketch tile naming the file it
+expects, rather than a broken image — so it's safe to write the list first.
+An interest with no photos at all shows a short "add some here" note.
+
+Two other files are referenced but not committed:
+
+- `public/resume.pdf` — the nav and contact "resume" links point here.
+- `public/me.jpg` — then, in
+  [`components/views/AboutView.tsx`](components/views/AboutView.tsx), replace
+  the placeholder `<div>` inside the polaroid with:
   ```tsx
   <img src="/me.jpg" alt="" className="h-full w-full object-cover" />
   ```
 
-## Design system
+## How it's put together
 
-Colours, fonts and the paper texture are defined as Tailwind v4 theme tokens
-at the top of [`app/globals.css`](app/globals.css). The font CSS variables are
-set on `<html>` (not `<body>`) so that the `@theme` block, which resolves at
-`:root`, can actually see them.
+```
+app/page.tsx              tab state + hash sync; the app shell
+components/TabNav.tsx     the four tabs
+components/views/         one file per screen
+components/scene/         the illustration and its clickable hotspots
+components/Modal.tsx      shared overlay chrome (backdrop, esc, tape)
+components/PhotoPanel     opens from a scene object
+components/ProjectPanel   opens from a project card
+```
 
-Doodles are inline SVG in [`components/Doodles.tsx`](components/Doodles.tsx)
-and inherit `currentColor`, so you can tint any of them with a text colour
-class. They're hidden below the `md` breakpoint to keep phones uncluttered.
+Two things worth knowing before you edit the illustration:
 
-All motion is wrapped in a `prefers-reduced-motion` guard.
+- Each object's `id` in `DeskScene.tsx` must match an `id` in `interests`.
+- Every hotspot carries a `hit` rectangle. SVG only hit-tests *painted*
+  pixels, so without it you'd have to click exactly on a 2px stroke. If you
+  move an object, move its `hit` box too.
+
+Colours, fonts and the paper texture are Tailwind v4 theme tokens at the top
+of [`app/globals.css`](app/globals.css). The font CSS variables are set on
+`<html>` (not `<body>`) so the `@theme` block, which resolves at `:root`, can
+see them. All motion is wrapped in a `prefers-reduced-motion` guard.
 
 ## Deploy
 

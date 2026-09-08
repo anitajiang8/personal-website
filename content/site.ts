@@ -104,35 +104,81 @@ export const projects: Project[] = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   OFF THE CLOCK — the character section.
-   This is what makes the site yours. Keep the captions specific;
-   "I dye fabric with avocado pits" lands, "I like crafts" doesn't.
+   THINGS I ENJOY
+   Each one is a clickable object in the desk illustration on the
+   landing page. Clicking it opens a photo panel.
+
+   `id` must match a hotspot id in components/scene/DeskScene.tsx.
+
+   PHOTOS: drop files into public/photos/<id>/ and list them here.
+   A listed file that doesn't exist degrades to a sketch tile rather
+   than a broken image, so it's safe to add these before the photos.
    ───────────────────────────────────────────────────────────── */
 
-export const offTheClock = [
+export type Photo = { src: string; caption?: string };
+
+export type Interest = {
+  id: "cooking" | "fashion" | "crafts" | "sketching" | "code";
+  label: string;
+  tagline: string;
+  blurb: string;
+  photos: Photo[];
+};
+
+export const interests: Interest[] = [
   {
+    id: "cooking",
     label: "Cooking",
-    caption: "Chasing the perfect chili oil. Currently on batch eleven.",
-    doodle: "bowl",
-    tilt: -3,
+    tagline: "batch eleven",
+    blurb:
+      "Chasing the perfect chili oil. I keep notes on every batch like it's a lab notebook, which tells you most of what you need to know about me.",
+    photos: [
+      { src: "/photos/cooking/1.jpg", caption: "batch eleven, finally right" },
+      { src: "/photos/cooking/2.jpg", caption: "dumplings, group effort" },
+      { src: "/photos/cooking/3.jpg", caption: "the notebook" },
+    ],
   },
   {
+    id: "fashion",
     label: "Fashion",
-    caption: "Thrift, alter, repeat. Most of my closet has been re-hemmed.",
-    doodle: "hanger",
-    tilt: 2,
+    tagline: "thrift, alter, repeat",
+    blurb:
+      "Most of my closet has been re-hemmed at least once. I like clothes for the same reason I like interfaces — the construction is invisible when it's done well.",
+    photos: [
+      { src: "/photos/fashion/1.jpg", caption: "before and after" },
+      { src: "/photos/fashion/2.jpg", caption: "thrifted, taken in" },
+    ],
   },
   {
-    label: "Crafts",
-    caption: "Ceramics on weekends. Everything I make is slightly lopsided.",
-    doodle: "spark",
-    tilt: -2,
+    id: "crafts",
+    label: "Ceramics",
+    tagline: "charmingly lopsided",
+    blurb:
+      "Weekends at the wheel. Everything I make is slightly off-centre and I've made peace with it — you can't refactor a bowl once it's fired.",
+    photos: [
+      { src: "/photos/crafts/1.jpg", caption: "first mug that survived" },
+      { src: "/photos/crafts/2.jpg", caption: "glaze tests" },
+      { src: "/photos/crafts/3.jpg", caption: "the lopsided one" },
+    ],
   },
   {
-    label: "Design",
-    caption: "I designed this site before I built it. Figma file on request.",
-    doodle: "pen",
-    tilt: 3,
+    id: "sketching",
+    label: "Drawing",
+    tagline: "always a notebook",
+    blurb:
+      "I sketch interfaces before I build them, and I sketch things that aren't interfaces too. Every doodle on this site is one of mine.",
+    photos: [
+      { src: "/photos/sketching/1.jpg", caption: "wireframes for this site" },
+      { src: "/photos/sketching/2.jpg", caption: "life drawing" },
+    ],
+  },
+  {
+    id: "code",
+    label: "Building",
+    tagline: "what I do most",
+    blurb:
+      "Mostly TypeScript and Python. I like the part where a messy idea turns into something someone else can actually use.",
+    photos: [],
   },
 ];
 
