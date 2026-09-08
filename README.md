@@ -13,7 +13,11 @@ Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind v4.
 npm run dev
 ```
 
-Then open http://localhost:3000.
+Then open **http://localhost:3111**.
+
+The dev script pins port 3111 on purpose: your nutri.ai app also runs on
+Next's default port 3000, and if both are up, 3000 serves nutri.ai — not this
+site. If a page loads but looks like the wrong project, check the port.
 
 ## Editing your content
 
