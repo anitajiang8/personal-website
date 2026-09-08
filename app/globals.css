@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paper & ink */
+  --color-paper: #fdfbf6;
+  --color-paper-deep: #f6f1e7;
+  --color-ink: #211f1c;
+  --color-ink-soft: #56514a;
+  --color-ink-faint: #8d867c;
+  --color-rule: #e4ddd0;
+
+  /* Accents — pulled from the scrapbook palette */
+  --color-blue: #6d8fe6;
+  --color-coral: #e5623d;
+  --color-butter: #f0cd63;
+  --color-sage: #9db884;
+  --color-lilac: #b3a2dd;
+
+  --font-display: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+  --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Paper grain ─────────────────────────────────────────────
+   Baked into a repeating background on <body>. An earlier version
+   used a fixed, full-viewport ::before overlay — it forced its own
+   compositing layer and left the page unpainted in some browsers. */
+body {
+  background-color: var(--color-paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Highlighter mark on {braced} words ──────────────────── */
+.mark-hand {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.mark-hand::before {
+  content: "";
+  position: absolute;
+  inset: 0.12em -0.24em 0.06em -0.24em;
+  z-index: -1;
+  background: var(--color-butter);
+  opacity: 0.55;
+  border-radius: 0.6em 0.4em 0.5em 0.35em;
+  transform: rotate(-0.6deg);
+}
+
+/* ── Hand-drawn underline for links ──────────────────────── */
+.underline-sketch {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1.5px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.25s ease;
+}
+.underline-sketch:hover {
+  background-size: 100% 3px;
+}
+
+/* ── Washi tape on scrapbook cards ───────────────────────── */
+.tape {
+  position: absolute;
+  width: 86px;
+  height: 26px;
+  background: rgba(240, 205, 99, 0.42);
+  border-left: 1px dashed rgba(255, 255, 255, 0.45);
+  border-right: 1px dashed rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(1px);
+  box-shadow: 0 1px 3px rgba(33, 31, 28, 0.08);
+}
+
+/* ── Motion ──────────────────────────────────────────────── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50%      { transform: translateY(-9px) rotate(calc(var(--r, 0deg) + 1.5deg)); }
+}
+.float-slow { animation: float-slow 7s ease-in-out infinite; }
+
+@keyframes draw-in {
+  from { stroke-dashoffset: 340; }
+  to   { stroke-dashoffset: 0; }
+}
+.draw-in {
+  stroke-dasharray: 340;
+  animation: draw-in 1.5s 0.35s ease-out both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::selection {
+  background: var(--color-butter);
+  color: var(--color-ink);
+}
