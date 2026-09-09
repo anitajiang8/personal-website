@@ -1,25 +1,32 @@
 @import "tailwindcss";
 
 @theme {
+  /* The desk the notebook lies on — deliberately several shades darker and
+     greyer than the paper, so a sheet reads as a separate object rather than
+     a slightly different patch of the same surface. */
+  --color-desk: #ded5c6;
+  --color-desk-deep: #cfc4b1;
+
   /* Paper & ink */
-  --color-paper: #fdfbf6;
-  --color-paper-deep: #f6f1e7;
+  --color-paper: #fdfcf8;
+  --color-paper-deep: #f4efe3;
   --color-ink: #211f1c;
   --color-ink-soft: #56514a;
   --color-ink-faint: #8d867c;
   --color-rule: #e4ddd0;
-  --color-grid: #ece5d8;
+  --color-grid: #e3ddcb;
   --color-note: #e7edb9;
   --color-note-pink: #f6d3dd;
 
   /* Accents — pastel stationery, the colours real desk hardware comes in.
      These are FILL colours: tape, clips, pins, chips, stickers. They are far
      too light to set text on paper. */
-  --color-blue: #a8c5e8;
-  --color-coral: #f4b8c4;
-  --color-butter: #f5e4a8;
+  /* Sampled off the reference sheet of clips and pins. */
+  --color-blue: #c6dbe8;
+  --color-coral: #eda3b4;
+  --color-butter: #f4e6bd;
   --color-sage: #c3d9b0;
-  --color-lilac: #cfc2e8;
+  --color-lilac: #d8c6d4;
 
   /* ...so every accent has a deeper twin for text, strokes and small marks.
      These all clear 4.5:1 on --color-paper. */
@@ -40,12 +47,23 @@
    used a fixed, full-viewport ::before overlay — it forced its own
    compositing layer and left the page unpainted in some browsers. */
 body {
-  background-color: var(--color-paper);
+  background-color: var(--color-desk);
   background-image:
-    linear-gradient(var(--color-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
-  background-size: 26px 26px, 26px 26px, 200px 200px;
+    /* a broad, slow mottle so the surface isn't a flat swatch */
+    radial-gradient(
+      ellipse 80% 55% at 22% 12%,
+      rgba(255, 255, 255, 0.5),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 85% 80%,
+      rgba(120, 104, 80, 0.16),
+      transparent 68%
+    ),
+    /* fine tooth, like a cloth desk mat */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23d)' opacity='0.12'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 180px 180px;
+  background-attachment: fixed, fixed, scroll;
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -178,12 +196,33 @@ body {
 
 /* ── Notebook furniture ──────────────────────────────────── */
 
-/* A page that sits on top of the grid: slightly brighter, softly lifted. */
+/* A page lying on the desk. The lift comes from three stacked shadows: a
+   tight contact shadow where the paper meets the surface, a mid ambient one,
+   and a wide soft cast — a single shadow reads as a flat card. */
 .sheet {
-  background: color-mix(in srgb, var(--color-paper) 82%, white);
+  position: relative;
+  background-color: var(--color-paper);
+  /* Paper fibre: a fine grain plus a longer, softer mottle across the sheet. */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23m)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 140px 140px, 420px 420px;
   box-shadow:
-    0 1px 2px rgba(33, 31, 28, 0.04),
-    0 14px 32px -22px rgba(33, 31, 28, 0.4);
+    0 1px 1px rgba(74, 62, 42, 0.16),
+    0 6px 12px -6px rgba(74, 62, 42, 0.22),
+    0 28px 60px -30px rgba(74, 62, 42, 0.45);
+}
+
+/* The cut edge of the stock, catching the light along the top and left. */
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  border-left: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(120, 104, 80, 0.12);
+  border-right: 1px solid rgba(120, 104, 80, 0.09);
 }
 
 /* Ruled writing lines, for journal-style blocks. */

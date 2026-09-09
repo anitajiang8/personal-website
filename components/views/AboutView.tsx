@@ -2,7 +2,7 @@ import { aboutMe, interests, profile } from "@/content/site";
 import Spread from "../paper/Spread";
 import Collage from "../paper/Collage";
 import CutoutHeading from "../paper/CutoutHeading";
-import { PaperClip } from "../paper/Hardware";
+import { BinderClip } from "../paper/Hardware";
 import { Tape, Sticker } from "../paper/Decor";
 import { HandNote } from "../paper/Annotation";
 import { Flower, Heart } from "../Doodles";
@@ -60,7 +60,7 @@ export default function AboutView() {
               <img src="/me.jpg" alt="" className="h-full w-full object-cover" />
               after dropping me.jpg into /public */}
           <figure className="relative mx-auto w-full max-w-[13rem] rotate-2">
-            <PaperClip className="absolute -top-4 right-5 z-10 h-10 w-5 text-coral-ink" />
+            <BinderClip className="absolute -top-5 right-6 z-10 h-11 w-12 text-coral" />
             <Tape
               variant="plain"
               color="rgba(245,228,168,0.6)"

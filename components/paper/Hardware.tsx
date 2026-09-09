@@ -8,12 +8,31 @@ type P = { className?: string; style?: React.CSSProperties };
 const HI = "white";
 const LO = "#000";
 
-/** Bulldog clip, head-on — clamps the top edge of a card. */
-export function BulldogClip({ className, style }: P) {
+/** Bulldog clip, head-on — clamps the top edge of a card.
+
+    Matches the reference stationery: a scalloped lower jaw, an engraved
+    script wordmark, and a round finger hole in the raised head. */
+export function BulldogClip({
+  className,
+  style,
+  /* The jaw's bottom edge. The reference sheet has both kinds. */
+  edge = "scallop",
+  label = "Archive",
+}: P & { edge?: "scallop" | "straight"; label?: string | null }) {
+  /* A run of shallow bumps along the bottom of the jaw. Built once here so
+     the two edge styles share the rest of the shape. */
+  /* The bottom edge is walked right-to-left, so each bump steps in -x. */
+  const scallop = Array.from({ length: 8 }, () => "q-4 5 -8 0").join(" ");
+
+  const jaw =
+    edge === "scallop"
+      ? `M8 36h64a5 5 0 0 1 5 5v13 ${scallop} a5 5 0 0 1-5-4V41a5 5 0 0 1 5-5Z`
+      : "M8 36h64a5 5 0 0 1 5 5v14a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V41a5 5 0 0 1 5-5Z";
+
   return (
     <svg viewBox="0 0 80 66" className={className} style={style} aria-hidden>
       {/* cast shadow on the paper below */}
-      <ellipse cx="40" cy="62" rx="30" ry="3.5" fill={LO} opacity="0.1" />
+      <ellipse cx="40" cy="63" rx="30" ry="3" fill={LO} opacity="0.13" />
 
       {/* the raised head */}
       <path
@@ -34,23 +53,77 @@ export function BulldogClip({ className, style }: P) {
       <path d="M33 22a7.5 7.5 0 0 1 14-6" stroke={LO} strokeWidth="1.6" fill="none" opacity="0.16" />
 
       {/* pivot pins */}
-      <rect x="14" y="33" width="9" height="6" rx="3" className="fill-current" />
-      <rect x="57" y="33" width="9" height="6" rx="3" className="fill-current" />
-      <rect x="14" y="33" width="9" height="3" rx="1.5" fill={HI} opacity="0.4" />
+      <rect x="13" y="32" width="10" height="7" rx="3.5" className="fill-current" />
+      <rect x="57" y="32" width="10" height="7" rx="3.5" className="fill-current" />
+      <rect x="13" y="32" width="10" height="3" rx="1.5" fill={HI} opacity="0.45" />
+      <rect x="57" y="32" width="10" height="3" rx="1.5" fill={HI} opacity="0.45" />
 
       {/* the jaw */}
-      <path d="M8 36h64a5 5 0 0 1 5 5v14a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V41a5 5 0 0 1 5-5Z" className="fill-current" />
+      <path d={jaw} className="fill-current" />
       {/* top highlight and shaded lower edge */}
-      <path d="M9 39h62a3 3 0 0 1 3 3v3H6v-3a3 3 0 0 1 3-3Z" fill={HI} opacity="0.42" />
-      <path d="M4 52h72v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3Z" fill={LO} opacity="0.12" />
-      {/* the scalloped grip line along the bottom */}
+      <path d="M9 39h62a3 3 0 0 1 3 3v3H6v-3a3 3 0 0 1 3-3Z" fill={HI} opacity="0.45" />
+      <path d="M4 50h72v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-4Z" fill={LO} opacity="0.10" />
+
+      {/* engraved wordmark, pressed into the jaw: a dark cut with a lit edge
+          just beneath it */}
+      {label && (
+        <g style={{ fontFamily: "var(--font-hand), cursive" }}>
+          <text
+            x="40"
+            y="50.5"
+            textAnchor="middle"
+            fontSize="13"
+            fontStyle="italic"
+            fill={LO}
+            opacity="0.26"
+          >
+            {label}
+          </text>
+          <text
+            x="40"
+            y="51.4"
+            textAnchor="middle"
+            fontSize="13"
+            fontStyle="italic"
+            fill={HI}
+            opacity="0.4"
+          >
+            {label}
+          </text>
+        </g>
+      )}
+    </svg>
+  );
+}
+
+/** Binder clip — the folded steel body tapers toward the top, with two
+    sprung wire handles standing up out of it. */
+export function BinderClip({ className, style }: P) {
+  return (
+    <svg viewBox="0 0 64 54" className={className} style={style} aria-hidden>
+      <ellipse cx="32" cy="50" rx="23" ry="2.6" fill={LO} opacity="0.12" />
+
+      {/* both handles, behind the body */}
+      <g fill="none" stroke="#b5b2ad" strokeWidth="2.4" strokeLinecap="round">
+        <path d="M26 30C20 24 19 12 26 6c4-3 9-3 13 0 7 6 6 18 0 24" />
+        <path d="M30 30C26 25 25 15 30 11" opacity="0.7" />
+      </g>
       <path
-        d="M10 57h60"
-        stroke={LO}
-        strokeWidth="1.2"
+        d="M27 28C22 24 21 14 27 7"
+        fill="none"
+        stroke={HI}
+        strokeWidth="0.9"
         strokeLinecap="round"
-        opacity="0.14"
+        opacity="0.75"
       />
+
+      {/* the folded body: narrower at the top where the steel wraps over */}
+      <path d="M12 24h40l4 22a3 3 0 0 1-3 3.5H11A3 3 0 0 1 8 46l4-22Z" className="fill-current" />
+      {/* lit top face and shaded foot */}
+      <path d="M12 24h40l0.9 5H11.1L12 24Z" fill={HI} opacity="0.45" />
+      <path d="M9 43h46l0.6 3.4a3 3 0 0 1-3 3.1H11.4a3 3 0 0 1-3-3.1L9 43Z" fill={LO} opacity="0.13" />
+      {/* the creases where the metal folds over the paper */}
+      <path d="M17 24 14.5 49M47 24l2.5 25" stroke={LO} strokeWidth="1" opacity="0.11" />
     </svg>
   );
 }
