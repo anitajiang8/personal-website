@@ -5,6 +5,8 @@ import { projects, type Project } from "@/content/site";
 import ProjectPanel from "../ProjectPanel";
 import { accentClasses } from "../accent";
 import { BulldogClip } from "../paper/Hardware";
+import { Tape, Sticker } from "../paper/Decor";
+import { Star } from "../Doodles";
 
 const tint = {
   blue: "text-blue",
@@ -19,7 +21,13 @@ export default function WorkView() {
 
   return (
     <div className="mx-auto flex min-h-full max-w-5xl flex-col px-5 py-6 sm:px-6">
-      <div className="sheet mx-auto flex w-full flex-1 flex-col rounded-sm p-6 sm:p-8">
+      <div className="sheet relative mx-auto flex w-full flex-1 flex-col rounded-sm p-6 sm:p-8">
+        <Tape variant="check" color="rgba(157,184,132,0.38)" rotate={-7} className="-left-5 top-10 h-7 w-24" />
+        <Tape variant="stripe" color="rgba(240,205,99,0.45)" rotate={6} className="-right-5 top-24 h-7 w-20" />
+        <Sticker className="absolute -right-3 bottom-10 hidden h-10 w-10 md:inline-flex" rotate={10}>
+          <Star className="h-5 w-5 text-butter" />
+        </Sticker>
+
         <div className="meta-rule flex shrink-0 items-baseline justify-between gap-4 pb-2.5">
           <p className="font-hand text-lg text-ink-faint">
             selected work{" "}

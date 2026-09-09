@@ -9,9 +9,9 @@ tabs (`hello · work · about · contact`) swap the view. Each view is a sheet o
 paper laid on a grid notebook background, held down with pastel bulldog clips,
 push pins and paper clips.
 
-The landing is a journal spread: a date strip, a short about-me, a sticky note,
-and a cluster of pinned cards for the things I enjoy — click one to open a
-panel of real photos.
+The landing writes out "hi! I'm Anita" by hand on load, then settles in a
+one-line intro, a sticky note and a row of pinned cards for the things I
+enjoy — click one to open a panel of real photos.
 
 Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind v4.
 
@@ -33,7 +33,8 @@ site. If a page loads but looks like the wrong project, check the port.
 
 | What you want to change | Where |
 | --- | --- |
-| Name, headline, the landing blurb, status pill | `profile` |
+| The handwritten landing greeting | `profile.greeting` |
+| Headline, the landing blurb, status pill | `profile` |
 | Email, GitHub, LinkedIn | `links` |
 | Projects (add / remove / reorder) | `projects` |
 | The clickable objects and their photos | `interests` |
@@ -121,3 +122,39 @@ All motion is wrapped in a `prefers-reduced-motion` guard.
 
 Push to GitHub, then import the repo at [vercel.com/new](https://vercel.com/new).
 No environment variables or configuration needed.
+
+
+## The handwriting animation
+
+`profile.greeting` is set in the Caveat face and revealed left to right by an
+animated `clip-path` (`.write-in` in `globals.css`), with a small sparkle
+"nib" travelling along the leading edge. Everything below it fades in
+afterwards via `.settle` with staggered delays.
+
+It stays real, selectable text — screen readers get the whole string
+immediately, and the `prefers-reduced-motion` guard collapses it to an
+instant reveal.
+
+This is a *reveal* of handwriting-style type, not a true stroke-by-stroke
+trace. If you want the pen to genuinely follow your own handwriting, letter
+by letter, that needs single-stroke SVG path data: write the phrase, trace it
+as paths, and animate `stroke-dashoffset` instead. Worth doing once you have
+your own lettering — it would look better than a font.
+
+## About the clips
+
+The bulldog clips, paper clips and push pins are **drawn**, in
+[`components/paper/Hardware.tsx`](components/paper/Hardware.tsx) — a base fill
+in `currentColor` plus stacked white/black overlays for the highlight and the
+shaded underside. That avoids `<defs>` gradient ids, so they never collide when
+repeated and work from server components.
+
+They are deliberately *not* the product photos from the moodboard — those are
+branded ("Archive", "Penco") commercial photography and can't ship on a public
+site. If you want photographic ones, get images you have the rights to, drop
+them in `public/hardware/`, and replace a component's body with an `<img>`;
+every call site passes sizing through `className`, so nothing else changes.
+
+Decoration lives in [`components/paper/Decor.tsx`](components/paper/Decor.tsx):
+`<Tape>` (variants `plain` / `stripe` / `dot` / `check`, with torn ends via
+`clip-path`) and `<Sticker>` (a die-cut white disc for any doodle).

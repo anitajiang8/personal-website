@@ -2,6 +2,8 @@ import { links, profile } from "@/content/site";
 import { Squiggle } from "../Doodles";
 import { PushPin } from "../paper/Hardware";
 import { Circled } from "../paper/Annotation";
+import { Tape, Sticker } from "../paper/Decor";
+import { Sparkle, Star } from "../Doodles";
 
 const socials = [
   { label: "github", href: links.github },
@@ -14,6 +16,14 @@ export default function ContactView() {
     <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center px-5 py-10 sm:px-6">
       <div className="sheet relative mx-auto w-full max-w-xl rounded-sm px-7 py-10 text-center sm:px-10">
         <PushPin className="absolute -top-4 left-1/2 h-9 w-7 -translate-x-1/2 text-coral" />
+        <Tape variant="stripe" color="rgba(109,143,230,0.4)" rotate={-8} className="-left-5 top-14 h-7 w-20" />
+        <Tape variant="dot" color="rgba(157,184,132,0.4)" rotate={7} className="-right-5 bottom-16 h-7 w-20" />
+        <Sticker className="absolute -left-4 bottom-24 hidden h-10 w-10 md:inline-flex" rotate={-10}>
+          <Star className="h-5 w-5 text-butter" />
+        </Sticker>
+        <Sticker className="absolute -right-4 top-24 hidden h-9 w-9 md:inline-flex" rotate={12}>
+          <Sparkle className="h-4 w-4 text-lilac" />
+        </Sticker>
 
         <p className="font-hand text-2xl text-ink-faint">say hello</p>
 

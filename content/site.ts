@@ -7,6 +7,9 @@ export const profile = {
   name: "Anita Jiang",
   // Shown in the browser tab + used for SEO
   title: "Anita Jiang — Software Engineer",
+  // The landing greeting, written out by hand on load. Keep it short —
+  // it's set very large and animates left to right.
+  greeting: "hi! I'm Anita",
   // The big landing statement. Words wrapped in {curly braces} get the
   // handwritten highlight treatment. Keep it to ~12 words.
   headline: "Hi, I'm Anita — I build {thoughtful} software and make things {by hand}.",

@@ -211,3 +211,34 @@ body {
     0 2px 4px rgba(33, 31, 28, 0.06),
     0 22px 44px -22px rgba(33, 31, 28, 0.42);
 }
+
+
+/* ── Handwriting ─────────────────────────────────────────────
+   A left-to-right reveal over the handwriting face. The generous
+   vertical inset keeps ascenders and descenders from being clipped.
+   The reduced-motion rule above collapses this to an instant reveal. */
+@keyframes write-in {
+  from { clip-path: inset(-25% 100% -25% -4%); }
+  to   { clip-path: inset(-25% -8% -25% -4%); }
+}
+.write-in {
+  animation: write-in 1.8s cubic-bezier(0.45, 0.05, 0.3, 1) 0.3s both;
+}
+
+/* The nib that travels along as the words appear. */
+@keyframes nib-travel {
+  from { left: 0; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  to   { left: 100%; opacity: 0; }
+}
+.nib {
+  animation: nib-travel 1.8s cubic-bezier(0.45, 0.05, 0.3, 1) 0.3s both;
+}
+
+/* Everything that should settle in after the writing finishes. */
+@keyframes settle {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.settle { animation: settle 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
