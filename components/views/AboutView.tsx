@@ -1,51 +1,70 @@
-import { aboutMe, profile } from "@/content/site";
-import { Flower } from "../Doodles";
+import { aboutMe, interests, profile } from "@/content/site";
+import Spread from "../paper/Spread";
+import Collage from "../paper/Collage";
+import CutoutHeading from "../paper/CutoutHeading";
 import { PaperClip } from "../paper/Hardware";
-import { Circled } from "../paper/Annotation";
 import { Tape, Sticker } from "../paper/Decor";
-import { Heart } from "../Doodles";
+import { HandNote } from "../paper/Annotation";
+import { Flower, Heart } from "../Doodles";
+
+/* A few prints pulled from across the interests, so the right-hand page reads
+   as a page of photos rather than a single portrait. */
+const scraps = interests
+  .flatMap((i) => i.photos)
+  .slice(0, 4);
 
 export default function AboutView() {
   return (
-    <div className="mx-auto flex min-h-full max-w-4xl flex-col px-5 py-6 sm:px-6">
-      <div className="sheet relative mx-auto flex w-full flex-1 flex-col rounded-sm p-6 sm:p-8">
-        <Tape variant="dot" color="rgba(179,162,221,0.4)" rotate={-5} className="-left-6 bottom-24 h-7 w-24" />
-        <Sticker className="absolute -right-3 top-32 hidden h-10 w-10 md:inline-flex" rotate={-12}>
-          <Heart className="h-5 w-5 text-coral" />
-        </Sticker>
+    <Spread
+      topic="the long version"
+      decor={
+        <>
+          <Tape
+            variant="dot"
+            color="rgba(207,194,232,0.55)"
+            rotate={-5}
+            className="-left-6 bottom-28 h-7 w-24"
+          />
+          <Sticker
+            className="absolute -right-3 top-36 hidden h-10 w-10 md:inline-flex"
+            rotate={-12}
+          >
+            <Heart className="h-5 w-5 text-coral-ink" />
+          </Sticker>
+        </>
+      }
+      left={
+        <div>
+          <h2 className="text-[1.75rem] leading-tight sm:text-[2.1rem]">
+            <CutoutHeading text="the long way around" variant="plain" />
+          </h2>
 
-        <div className="meta-rule flex shrink-0 items-baseline justify-between gap-4 pb-2.5">
-          <p className="font-hand text-lg text-ink-faint">
-            about <span className="text-ink-soft">· the long version</span>
-          </p>
-          <p className="font-hand text-lg text-ink-faint">{profile.location}</p>
-        </div>
-
-        <div className="mt-7 grid grid-cols-1 items-start gap-9 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-          <div>
-            <h2 className="font-display text-[2rem] leading-tight text-ink sm:text-4xl">
-              The <Circled className="text-blue">long way</Circled> around
-            </h2>
-
-            <div className="mt-6 space-y-4">
-              {aboutMe.map((para, i) => (
-                <p key={i} className="text-[0.95rem] leading-[1.8] text-ink-soft">
-                  {para}
-                </p>
-              ))}
-            </div>
-
-            <p className="mt-6 font-hand text-2xl text-ink">
-              — currently in {profile.location}
-            </p>
+          <div className="ruled mt-6 space-y-5">
+            {aboutMe.map((para, i) => (
+              <p key={i} className="text-[0.95rem] leading-[1.75] text-ink-soft">
+                {para}
+              </p>
+            ))}
           </div>
 
-          {/* Swap the inner div for:
+          <p className="mt-7 font-hand text-2xl text-ink">
+            — currently in {profile.location}
+          </p>
+        </div>
+      }
+      right={
+        <div className="flex flex-col gap-7">
+          {/* The portrait. Swap the inner div for:
               <img src="/me.jpg" alt="" className="h-full w-full object-cover" />
               after dropping me.jpg into /public */}
-          <figure className="relative mx-auto w-full max-w-[14rem] rotate-2">
-            <PaperClip className="absolute -top-4 right-5 z-10 h-10 w-5 text-coral" />
-            <Tape variant="plain" color="rgba(240,205,99,0.5)" rotate={-8} className="-left-4 top-6 h-6 w-16" />
+          <figure className="relative mx-auto w-full max-w-[13rem] rotate-2">
+            <PaperClip className="absolute -top-4 right-5 z-10 h-10 w-5 text-coral-ink" />
+            <Tape
+              variant="plain"
+              color="rgba(245,228,168,0.6)"
+              rotate={-8}
+              className="-left-4 top-6 h-6 w-16"
+            />
             <div className="rounded-[3px] bg-white p-3 pb-4 shadow-[0_2px_4px_rgba(33,31,28,0.06),0_16px_36px_-22px_rgba(33,31,28,0.4)]">
               <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-paper-deep">
                 <Flower className="h-12 w-12 text-ink-faint/40" />
@@ -58,8 +77,17 @@ export default function AboutView() {
               </figcaption>
             </div>
           </figure>
+
+          {scraps.length > 0 && (
+            <div>
+              <HandNote rotate={-2} arrow="left" className="mb-3">
+                bits of the rest of it
+              </HandNote>
+              <Collage photos={scraps} size="sm" className="gap-y-6" />
+            </div>
+          )}
         </div>
-      </div>
-    </div>
+      }
+    />
   );
 }

@@ -3,7 +3,7 @@
 /** A loose pen circle around a word — deliberately overshooting, not an ellipse. */
 export function Circled({
   children,
-  className = "text-coral",
+  className = "text-coral-ink",
 }: {
   children: React.ReactNode;
   className?: string;
@@ -57,5 +57,64 @@ export function CurvedArrow({
         <path d="M58 36l13-2-4-12" />
       </g>
     </svg>
+  );
+}
+
+/** A highlighter sweep behind a phrase. Unlike `.mark-hand` in globals.css
+    this takes a colour, so a page can highlight in more than one pen. */
+export function Highlighted({
+  children,
+  color = "var(--color-butter)",
+  className = "",
+}: {
+  children: React.ReactNode;
+  color?: string;
+  className?: string;
+}) {
+  return (
+    <span className={`relative inline-block isolate ${className}`}>
+      <span
+        aria-hidden
+        className="absolute -z-10"
+        style={{
+          inset: "0.14em -0.26em 0.04em -0.26em",
+          background: color,
+          opacity: 0.62,
+          borderRadius: "0.6em 0.35em 0.5em 0.4em",
+          transform: "rotate(-0.7deg)",
+        }}
+      />
+      {children}
+    </span>
+  );
+}
+
+/** A handwritten margin note, optionally with an arrow pointing at whatever
+    it's talking about. Decorative by default — pass `aria-hidden={false}` if
+    the note carries meaning that isn't written elsewhere. */
+export function HandNote({
+  children,
+  className = "",
+  rotate = -3,
+  arrow,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  rotate?: number;
+  arrow?: "left" | "right" | "none";
+}) {
+  return (
+    <span
+      className={`inline-flex items-start gap-1.5 font-hand text-lg leading-tight text-ink-faint ${className}`}
+      style={{ transform: `rotate(${rotate}deg)` }}
+    >
+      {arrow === "left" && (
+        <CurvedArrow className="mt-1 h-6 w-10 shrink-0 text-ink-faint/60" flip />
+      )}
+      <span>{children}</span>
+      {arrow === "right" && (
+        <CurvedArrow className="mt-1 h-6 w-10 shrink-0 text-ink-faint/60" />
+      )}
+    </span>
   );
 }

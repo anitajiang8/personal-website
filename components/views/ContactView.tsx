@@ -1,63 +1,98 @@
 import { links, profile } from "@/content/site";
-import { Squiggle } from "../Doodles";
+import StampCard, { FillRow } from "../paper/StampCard";
+import CutoutHeading from "../paper/CutoutHeading";
 import { PushPin } from "../paper/Hardware";
-import { Circled } from "../paper/Annotation";
 import { Tape, Sticker } from "../paper/Decor";
-import { Sparkle, Star } from "../Doodles";
+import { HandNote } from "../paper/Annotation";
+import { Squiggle, Sparkle, Star } from "../Doodles";
 
-const socials = [
-  { label: "github", href: links.github },
-  { label: "linkedin", href: links.linkedin },
-  { label: "resume", href: profile.resumeUrl },
-];
+/* Strip the scheme so the card reads like something written on a form rather
+   than pasted from a browser bar. */
+const bare = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "");
 
 export default function ContactView() {
   return (
-    <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center px-5 py-10 sm:px-6">
-      <div className="sheet relative mx-auto w-full max-w-xl rounded-sm px-7 py-10 text-center sm:px-10">
-        <PushPin className="absolute -top-4 left-1/2 h-9 w-7 -translate-x-1/2 text-coral" />
-        <Tape variant="stripe" color="rgba(109,143,230,0.4)" rotate={-8} className="-left-5 top-14 h-7 w-20" />
-        <Tape variant="dot" color="rgba(157,184,132,0.4)" rotate={7} className="-right-5 bottom-16 h-7 w-20" />
-        <Sticker className="absolute -left-4 bottom-24 hidden h-10 w-10 md:inline-flex" rotate={-10}>
-          <Star className="h-5 w-5 text-butter" />
-        </Sticker>
-        <Sticker className="absolute -right-4 top-24 hidden h-9 w-9 md:inline-flex" rotate={12}>
-          <Sparkle className="h-4 w-4 text-lilac" />
-        </Sticker>
-
-        <p className="font-hand text-2xl text-ink-faint">say hello</p>
-
-        <h2 className="mt-2 font-display text-[1.9rem] leading-tight text-ink sm:text-[2.6rem]">
-          I&apos;d love to hear about
-          <br />
-          what you&apos;re <Circled className="text-butter">building</Circled>
-        </h2>
-
-        <a
-          href={`mailto:${links.email}`}
-          className="underline-sketch mt-8 inline-block font-display text-xl text-ink sm:text-2xl"
+    <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col justify-center px-4 py-8 sm:px-6">
+      <div className="relative">
+        <Tape
+          variant="stripe"
+          color="rgba(168,197,232,0.55)"
+          rotate={-8}
+          className="-left-4 top-16 z-10 h-7 w-20"
+        />
+        <Tape
+          variant="dot"
+          color="rgba(195,217,176,0.55)"
+          rotate={7}
+          className="-right-4 bottom-20 z-10 h-7 w-20"
+        />
+        <Sticker
+          className="absolute -left-3 bottom-32 z-10 hidden h-10 w-10 md:inline-flex"
+          rotate={-10}
         >
-          {links.email}
-        </a>
+          <Star className="h-5 w-5 text-butter-ink" />
+        </Sticker>
+        <Sticker
+          className="absolute -right-3 top-28 z-10 hidden h-9 w-9 md:inline-flex"
+          rotate={12}
+        >
+          <Sparkle className="h-4 w-4 text-lilac-ink" />
+        </Sticker>
+        <PushPin className="absolute -top-3 left-1/2 z-20 h-9 w-7 -translate-x-1/2 text-coral" />
 
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noreferrer"
-              className="underline-sketch text-sm text-ink-soft transition-colors hover:text-ink"
-            >
-              {s.label}
-            </a>
-          ))}
-        </div>
+        <StampCard title="CORRESPONDENCE · NO POSTAGE REQUIRED" rotate={-0.8}>
+          <p className="text-center font-hand text-2xl text-ink-faint">say hello</p>
 
-        <Squiggle className="mx-auto mt-9 h-5 w-20 text-ink-faint/50" />
-        <p className="mt-5 text-xs text-ink-faint">
-          Designed &amp; built by {profile.name} · {new Date().getFullYear()}
-        </p>
+          <h2 className="mt-2 text-center text-[1.6rem] leading-tight sm:text-[2.1rem]">
+            <CutoutHeading text="tell me what" variant="plain" />
+            <br />
+            <CutoutHeading text="you're building" variant="chips" />
+          </h2>
+
+          <div className="mx-auto mt-9 max-w-sm space-y-4">
+            <FillRow label="EMAIL">
+              <a href={`mailto:${links.email}`} className="underline-sketch">
+                {links.email}
+              </a>
+            </FillRow>
+            <FillRow label="GITHUB">
+              <a
+                href={links.github}
+                target="_blank"
+                rel="noreferrer"
+                className="underline-sketch"
+              >
+                {bare(links.github)}
+              </a>
+            </FillRow>
+            <FillRow label="LINKEDIN">
+              <a
+                href={links.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="underline-sketch"
+              >
+                {bare(links.linkedin)}
+              </a>
+            </FillRow>
+            <FillRow label="RESUME">
+              <a href={profile.resumeUrl} className="underline-sketch">
+                {profile.resumeUrl.replace(/^\//, "")}
+              </a>
+            </FillRow>
+            <FillRow label="BASED IN">{profile.location}</FillRow>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <HandNote rotate={-2}>I reply to everything, promise</HandNote>
+          </div>
+
+          <Squiggle className="mx-auto mt-6 h-5 w-20 text-ink-faint/50" />
+          <p className="mt-4 text-center font-mono text-[0.6rem] tracking-[0.12em] text-ink-faint">
+            DESIGNED &amp; BUILT BY {profile.name.toUpperCase()} ·{" "}
+            {new Date().getFullYear()}
+          </p>
+        </StampCard>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Caveat, Inter } from "next/font/google";
+import { Instrument_Serif, Caveat, Inter, Courier_Prime } from "next/font/google";
 import { profile } from "@/content/site";
 import "./globals.css";
 
@@ -14,6 +14,13 @@ const instrumentSerif = Instrument_Serif({
 const caveat = Caveat({
   subsets: ["latin"],
   variable: "--font-caveat",
+  display: "swap",
+});
+
+const courierPrime = Courier_Prime({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-courier-prime",
   display: "swap",
 });
 
@@ -39,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${caveat.variable} ${inter.variable}`}
+      className={`${instrumentSerif.variable} ${caveat.variable} ${inter.variable} ${courierPrime.variable}`}
     >
       <body>
         <div className="relative z-10">{children}</div>

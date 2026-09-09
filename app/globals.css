@@ -12,16 +12,27 @@
   --color-note: #e7edb9;
   --color-note-pink: #f6d3dd;
 
-  /* Accents — pulled from the scrapbook palette */
-  --color-blue: #6d8fe6;
-  --color-coral: #e5623d;
-  --color-butter: #f0cd63;
-  --color-sage: #9db884;
-  --color-lilac: #b3a2dd;
+  /* Accents — pastel stationery, the colours real desk hardware comes in.
+     These are FILL colours: tape, clips, pins, chips, stickers. They are far
+     too light to set text on paper. */
+  --color-blue: #a8c5e8;
+  --color-coral: #f4b8c4;
+  --color-butter: #f5e4a8;
+  --color-sage: #c3d9b0;
+  --color-lilac: #cfc2e8;
+
+  /* ...so every accent has a deeper twin for text, strokes and small marks.
+     These all clear 4.5:1 on --color-paper. */
+  --color-blue-ink: #4a72ab;
+  --color-coral-ink: #b04e66;
+  --color-butter-ink: #8a6d16;
+  --color-sage-ink: #5a7345;
+  --color-lilac-ink: #6b5aa0;
 
   --font-display: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
   --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-courier-prime), ui-monospace, "Courier New", monospace;
 }
 
 /* ── Paper grain ─────────────────────────────────────────────
@@ -181,6 +192,76 @@ body {
     transparent 0 28px,
     var(--color-rule) 28px 29px
   );
+}
+
+/* Fine graph paper, for the spread pages themselves. Lighter than the body
+   grid so a sheet laid on the desk still reads as a separate surface. */
+.paper-grid {
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  /* Anchor the ruling to the page's own box, so it doesn't visibly shift
+     when the page changes height between views. */
+  background-position: center;
+}
+
+/* The binding seam between two pages of an open notebook: paper curving down
+   into the gutter on both sides. Drawn on the divider, not on the pages, so
+   the collage can still overlap the centre. */
+.gutter {
+  background: linear-gradient(
+    90deg,
+    rgba(33, 31, 28, 0) 0%,
+    rgba(33, 31, 28, 0.05) 32%,
+    rgba(33, 31, 28, 0.11) 50%,
+    rgba(33, 31, 28, 0.05) 68%,
+    rgba(33, 31, 28, 0) 100%
+  );
+}
+
+/* Perforated stamp border. The mask punches half-circles out of every edge;
+   the drop-shadow then traces the resulting scalloped silhouette. */
+.stamp-edge {
+  --scallop: 11px;
+  background: color-mix(in srgb, var(--color-paper) 90%, white);
+  mask:
+    radial-gradient(circle var(--scallop) at 50% 0, transparent 99%, #000 100%)
+      0 0 / calc(var(--scallop) * 2) 100% repeat-x,
+    radial-gradient(circle var(--scallop) at 50% 100%, transparent 99%, #000 100%)
+      0 100% / calc(var(--scallop) * 2) 100% repeat-x,
+    radial-gradient(circle var(--scallop) at 0 50%, transparent 99%, #000 100%)
+      0 0 / 100% calc(var(--scallop) * 2) repeat-y,
+    radial-gradient(circle var(--scallop) at 100% 50%, transparent 99%, #000 100%)
+      100% 0 / 100% calc(var(--scallop) * 2) repeat-y;
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  filter: drop-shadow(0 8px 18px rgba(33, 31, 28, 0.18));
+}
+
+/* The sheen of a clear plastic sleeve over a collage block. */
+.sleeve::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    rgba(255, 255, 255, 0) 18%,
+    rgba(255, 255, 255, 0.42) 34%,
+    rgba(255, 255, 255, 0.06) 46%,
+    rgba(255, 255, 255, 0) 62%
+  );
+}
+
+/* A dotted fill-in line, the kind printed on a form. Sits on the baseline
+   between a label and its value. */
+.dot-leader {
+  flex: 1;
+  align-self: end;
+  margin-bottom: 0.28em;
+  border-bottom: 1.5px dotted var(--color-ink-faint);
+  opacity: 0.55;
 }
 
 /* Sticky note, with the lift heavier at the bottom edge like a real one. */

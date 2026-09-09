@@ -9,25 +9,44 @@ export const profile = {
   title: "Anita Jiang — Software Engineer",
   // The landing greeting, written out by hand on load. Keep it short —
   // it's set very large and animates left to right.
-  greeting: "hi! I'm Anita",
+  greeting: "hi! i'm anita",
   // The big landing statement. Words wrapped in {curly braces} get the
   // handwritten highlight treatment. Keep it to ~12 words.
   headline: "Hi, I'm Anita — I build {thoughtful} software and make things {by hand}.",
   // The quick about-me under the headline. 2 short lines works best.
   blurb: [
-    "Computer science student who codes like she sketches — iteratively, and with a lot of erasing.",
-    "Currently looking for Summer 2027 software engineering internships.",
+    "Computer engineering student who codes like she sketches — iteratively, and with a lot of erasing.",
+    "Currently looking for Winter 2027 software engineering internships.",
   ],
   // Little status pill in the nav. Set to null to hide it.
-  status: "Open to SWE internships",
+  status: "Open to Winter 2027 SWE internships",
   location: "Toronto, ON",
   resumeUrl: "/resume.pdf", // drop resume.pdf into /public
 };
 
+/* ─────────────────────────────────────────────────────────────
+   THE RECEIPT
+   Printed as a monospace stub on the landing page. This is the
+   part a recruiter reads in ten seconds, so keep it factual and
+   keep the lists short — 6 items max each, strongest first.
+   ───────────────────────────────────────────────────────────── */
+
+export const education = {
+  school: "University of Waterloo",
+  program: "Computer Engineering",
+  detail: "BASc · expected 2030",
+};
+
+export const skills = {
+  languages: ["TypeScript", "Python", "C", "C++", "Java", "SQL"],
+  frameworks: ["React", "Next.js", "Node", "FastAPI", "Postgres"],
+  tools: ["Git", "Docker", "Figma", "Linux", "AWS"],
+};
+
 export const links = {
   email: "anitaa.jiang@gmail.com",
-  github: "https://github.com/yourusername",
-  linkedin: "https://linkedin.com/in/yourusername",
+  github: "https://github.com/anitajiang8",
+  linkedin: "https://linkedin.com/in/anita-jiang-uw",
 };
 
 /* ─────────────────────────────────────────────────────────────
