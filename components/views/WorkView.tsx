@@ -9,6 +9,7 @@ import { BulldogClip } from "../paper/Hardware";
 import { Tape } from "../paper/Decor";
 import { Highlighted, HandNote } from "../paper/Annotation";
 import { LuckyDiamond } from "../paper/Stickers";
+import PatchSticker from "../paper/PatchSticker";
 
 const tint = {
   blue: "text-blue",
@@ -105,6 +106,18 @@ export default function WorkView() {
               className="-right-4 -top-2 h-7 w-20"
             />
             <LuckyDiamond className="pointer-events-none absolute bottom-7 right-7 hidden h-12 w-12 rotate-6 md:block" />
+            <PatchSticker
+              patch="clover"
+              width={40}
+              rotate={-12}
+              className="absolute bottom-14 right-44 hidden md:block"
+            />
+            <PatchSticker
+              patch="wings"
+              width={62}
+              rotate={5}
+              className="absolute -top-4 right-24 hidden md:block"
+            />
           </>
         }
         left={

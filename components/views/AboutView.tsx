@@ -27,6 +27,19 @@ export default function AboutView() {
             rotate={-5}
             className="-left-4 bottom-10 h-7 w-24"
           />
+          <PatchSticker
+            patch="butterfly"
+            width={40}
+            rotate={-16}
+            className="absolute right-1/3 top-10 hidden md:block"
+          />
+          <PatchSticker
+            patch="bearWhite"
+            width={52}
+            rotate={7}
+            className="absolute bottom-24 left-10 hidden md:block"
+          />
+
           <CloudPatch className="pointer-events-none absolute bottom-20 left-1/4 hidden h-11 w-14 -rotate-6 md:block" />
           <FlowerPatch className="pointer-events-none absolute bottom-16 left-8 hidden h-10 w-10 rotate-12 md:block" />
         </>

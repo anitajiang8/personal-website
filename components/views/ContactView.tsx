@@ -6,6 +6,7 @@ import { Tape } from "../paper/Decor";
 import { HandNote } from "../paper/Annotation";
 import { Squiggle } from "../Doodles";
 import { FoilStar, SunFace } from "../paper/Stickers";
+import PatchSticker from "../paper/PatchSticker";
 
 /* Strip the scheme so the card reads like something written on a form rather
    than pasted from a browser bar. */
@@ -30,6 +31,25 @@ export default function ContactView() {
         <FoilStar className="pointer-events-none absolute bottom-14 left-5 z-10 hidden h-12 w-12 -rotate-12 md:block" />
         <SunFace className="pointer-events-none absolute right-6 top-20 z-10 hidden h-12 w-12 rotate-6 md:block" />
         <PushPin className="absolute -top-3 left-1/2 z-20 h-9 w-7 -translate-x-1/2 text-coral" />
+
+        <PatchSticker
+          patch="wings"
+          width={74}
+          rotate={-3}
+          className="absolute -top-7 left-1/2 z-10 hidden -translate-x-1/2 md:block"
+        />
+        <PatchSticker
+          patch="starPink"
+          width={40}
+          rotate={12}
+          className="absolute -right-3 bottom-28 z-10 hidden md:block"
+        />
+        <PatchSticker
+          patch="sparkle"
+          width={38}
+          rotate={-8}
+          className="absolute -left-4 top-1/3 z-10 hidden md:block"
+        />
 
         <StampCard title="CORRESPONDENCE · NO POSTAGE REQUIRED" rotate={-0.8}>
           <p className="text-center font-hand text-2xl text-ink-faint">say hello</p>

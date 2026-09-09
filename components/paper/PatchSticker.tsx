@@ -7,8 +7,15 @@ import Image from "next/image";
    serves webp, so the ~200KB sources never reach a visitor at full weight. */
 
 const PATCHES = {
-  kitten: { src: "/stickers/kitten.png", w: 400, h: 365 },
-  bunny: { src: "/stickers/bunny.png", w: 215, h: 400 },
+  kitten: { src: "/stickers/kitten.png", w: 360, h: 328 },
+  bunny: { src: "/stickers/bunny.png", w: 193, h: 360 },
+  starPink: { src: "/stickers/star-pink.png", w: 360, h: 347 },
+  wings: { src: "/stickers/wings.png", w: 360, h: 210 },
+  butterfly: { src: "/stickers/butterfly.png", w: 215, h: 360 },
+  clover: { src: "/stickers/clover.png", w: 293, h: 360 },
+  bearHead: { src: "/stickers/bear-head.png", w: 360, h: 277 },
+  bearWhite: { src: "/stickers/bear-white.png", w: 310, h: 360 },
+  sparkle: { src: "/stickers/sparkle.png", w: 269, h: 360 },
 } as const;
 
 export default function PatchSticker({

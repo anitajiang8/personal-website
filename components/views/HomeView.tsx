@@ -107,6 +107,13 @@ export default function HomeView() {
               )}
             </div>
 
+            <PatchSticker
+              patch="sparkle"
+              width={46}
+              rotate={-14}
+              className="absolute left-[17.5rem] top-2 hidden md:block"
+            />
+
             <SunFace
               className="settle pointer-events-none absolute right-6 top-4 hidden h-14 w-14 rotate-6 md:block"
               style={{ animationDelay: "2.4s" }}
@@ -173,7 +180,15 @@ export default function HomeView() {
               the short version ↓
             </HandNote>
 
-            <Receipt className="mx-auto w-full max-w-[20rem]" />
+            <div className="relative mx-auto w-full max-w-[20rem]">
+              <Receipt />
+              <PatchSticker
+                patch="bearHead"
+                width={54}
+                rotate={9}
+                className="absolute -bottom-4 -left-5 z-10"
+              />
+            </div>
 
             {/* The to-do sticky keeps the right-hand page from bottoming out
                 under the receipt, and says what I'm actually doing right now. */}
@@ -194,6 +209,13 @@ export default function HomeView() {
                 ))}
               </ul>
             </div>
+
+            <PatchSticker
+              patch="starPink"
+              width={42}
+              rotate={-10}
+              className="absolute -right-1 bottom-24 hidden md:block"
+            />
 
             <PatchSticker
               patch="kitten"
