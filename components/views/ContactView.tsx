@@ -18,22 +18,22 @@ export default function ContactView() {
           variant="stripe"
           color="rgba(168,197,232,0.55)"
           rotate={-8}
-          className="-left-4 top-16 z-10 h-7 w-20"
+          className="left-2 top-14 z-10 h-7 w-20"
         />
         <Tape
           variant="dot"
           color="rgba(195,217,176,0.55)"
           rotate={7}
-          className="-right-4 bottom-20 z-10 h-7 w-20"
+          className="bottom-16 right-3 z-10 h-7 w-20"
         />
         <Sticker
-          className="absolute -left-3 bottom-32 z-10 hidden h-10 w-10 md:inline-flex"
+          className="absolute bottom-16 left-6 z-10 hidden h-10 w-10 md:inline-flex"
           rotate={-10}
         >
           <Star className="h-5 w-5 text-butter-ink" />
         </Sticker>
         <Sticker
-          className="absolute -right-3 top-28 z-10 hidden h-9 w-9 md:inline-flex"
+          className="absolute right-7 top-24 z-10 hidden h-9 w-9 md:inline-flex"
           rotate={12}
         >
           <Sparkle className="h-4 w-4 text-lilac-ink" />

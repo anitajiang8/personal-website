@@ -34,7 +34,7 @@ export function SpreadHeader({
           date <span className="text-ink-soft">{`${yy} . ${mm} . ${dd}`}</span>
         </p>
 
-        <div className="flex items-center gap-1.5" aria-hidden>
+        <div className="hidden items-center gap-1.5 sm:flex" aria-hidden>
           {DAYS.map((letter, i) => (
             <span
               key={i}

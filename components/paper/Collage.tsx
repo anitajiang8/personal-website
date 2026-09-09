@@ -11,13 +11,20 @@ import { PaperClip } from "./Hardware";
    Fixed per-index dressing rather than random, so the arrangement is stable
    across renders and identical on the server and the client. */
 
+/* Tilt and tape vary per position; the overlap stays gentle so no print ever
+   covers the caption of the one before it. Later prints stack ON TOP of
+   earlier ones (z ascends with index) — the reverse buries captions. */
 const DRESS = [
-  { tilt: -3.2, pull: "0", z: 3, tape: true },
-  { tilt: 2.4, pull: "-1.25rem", z: 2, tape: false },
-  { tilt: -1.6, pull: "-0.75rem", z: 4, tape: false },
-  { tilt: 3.1, pull: "-1.5rem", z: 1, tape: true },
-  { tilt: -2.2, pull: "-0.5rem", z: 5, tape: false },
+  { tilt: -3.2, tape: true },
+  { tilt: 2.4, tape: false },
+  { tilt: -1.6, tape: false },
+  { tilt: 3.1, tape: true },
+  { tilt: -2.2, tape: false },
 ] as const;
+
+/* How far each print laps over the previous one. Small tiles get a smaller
+   bite, or the caption underneath disappears. */
+const PULL = { sm: "-0.4rem", md: "-0.9rem", lg: "-1rem" } as const;
 
 const TAPE_COLORS = [
   "rgba(168,197,232,0.55)",
@@ -46,9 +53,9 @@ export default function Collage({
             className="relative"
             style={{
               /* Overlap the previous print, but only once there is one to
-                 overlap — and never on the first item of a wrapped row. */
-              marginLeft: i === 0 ? "0" : d.pull,
-              zIndex: d.z,
+                 overlap. */
+              marginLeft: i === 0 ? "0" : PULL[size],
+              zIndex: i + 1,
             }}
           >
             {d.tape && (

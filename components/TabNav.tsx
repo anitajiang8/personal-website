@@ -24,7 +24,7 @@ export default function TabNav({
 }) {
   return (
     <header className="shrink-0 border-b border-rule bg-paper/70 backdrop-blur-[2px]">
-      <nav className="mx-auto flex max-w-6xl items-end justify-between gap-3 px-4 pt-3 sm:px-6">
+      <nav className="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-x-3 gap-y-2 px-4 pt-3 sm:px-6">
         <button
           onClick={() => onChange("hello")}
           className="group mb-2.5 flex shrink-0 items-center gap-2"
@@ -38,7 +38,7 @@ export default function TabNav({
 
         {/* Sketchbook divider tabs — the active one sits lower, as though
             that section has been pulled forward in the binder. */}
-        <div className="flex items-end gap-1 self-end sm:gap-1.5" role="tablist">
+        <div className="order-3 flex w-full items-end gap-1 sm:order-none sm:w-auto sm:gap-1.5" role="tablist">
           {views.map((v) => {
             const isActive = v === active;
             const t = tabTint[v];
@@ -48,7 +48,7 @@ export default function TabNav({
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => onChange(v)}
-                className={`relative rounded-t-[7px] px-3 pb-2 font-display text-base leading-none transition-all sm:px-4 sm:text-lg ${
+                className={`relative flex-1 rounded-t-[7px] px-2 pb-2 font-display text-base leading-none transition-all sm:flex-none sm:px-4 sm:text-lg ${
                   isActive ? `${t.on} pt-3` : `${t.off} pt-2`
                 } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-faint`}
               >

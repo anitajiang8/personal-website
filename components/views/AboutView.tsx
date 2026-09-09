@@ -23,10 +23,10 @@ export default function AboutView() {
             variant="dot"
             color="rgba(207,194,232,0.55)"
             rotate={-5}
-            className="-left-6 bottom-28 h-7 w-24"
+            className="-left-4 bottom-10 h-7 w-24"
           />
           <Sticker
-            className="absolute -right-3 top-36 hidden h-10 w-10 md:inline-flex"
+            className="absolute right-7 top-40 hidden h-10 w-10 md:inline-flex"
             rotate={-12}
           >
             <Heart className="h-5 w-5 text-coral-ink" />
@@ -39,9 +39,11 @@ export default function AboutView() {
             <CutoutHeading text="the long way around" variant="plain" />
           </h2>
 
-          <div className="ruled mt-6 space-y-5">
+          {/* leading-[28px] matches the .ruled rhythm exactly — anything else and the
+              lines drift through the text after a few rows. */}
+          <div className="ruled mt-6 space-y-7">
             {aboutMe.map((para, i) => (
-              <p key={i} className="text-[0.95rem] leading-[1.75] text-ink-soft">
+              <p key={i} className="text-[0.95rem] leading-[28px] text-ink-soft">
                 {para}
               </p>
             ))}

@@ -34,6 +34,13 @@ const dressing: Record<
   code: { doodle: "spark", pin: "clip", tilt: -2.3, tint: "text-sage", inkTint: "text-sage-ink", offset: "0.5rem" },
 };
 
+/* The right-now list on the sticky note. Short, present tense, three items. */
+const nowList = [
+  "applying for Winter 2027",
+  "learning Rust, slowly",
+  "throwing a bowl that stays round",
+];
+
 export default function HomeView() {
   const [open, setOpen] = useState<Interest | null>(null);
 
@@ -47,16 +54,16 @@ export default function HomeView() {
               variant="stripe"
               color="rgba(168,197,232,0.55)"
               rotate={-6}
-              className="-left-5 top-9 h-7 w-24"
+              className="-left-4 -top-3 h-7 w-24"
             />
             <Tape
               variant="dot"
               color="rgba(244,184,196,0.5)"
               rotate={5}
-              className="-right-6 top-20 h-7 w-24"
+              className="-right-5 -top-2 h-7 w-24"
             />
-            <Star className="pointer-events-none absolute -left-3 bottom-28 hidden h-6 w-6 text-butter-ink/70 md:block" />
-            <Heart className="pointer-events-none absolute -right-2 bottom-44 hidden h-5 w-5 text-coral-ink/70 md:block" />
+            <Star className="pointer-events-none absolute bottom-24 left-6 hidden h-6 w-6 text-butter-ink/70 md:block" />
+            <Heart className="pointer-events-none absolute bottom-10 right-10 hidden h-5 w-5 text-coral-ink/70 md:block" />
           </>
         }
         left={
@@ -79,7 +86,7 @@ export default function HomeView() {
                 {profile.blurb.map((line, i) => (
                   <CheckLine
                     key={i}
-                    className="max-w-md text-[0.95rem] leading-relaxed text-ink-soft"
+                    className="max-w-full text-[0.95rem] leading-relaxed text-ink-soft sm:max-w-md"
                   >
                     {line}
                   </CheckLine>
@@ -158,7 +165,28 @@ export default function HomeView() {
             <HandNote rotate={1.5} className="self-end">
               the short version ↓
             </HandNote>
+
             <Receipt className="mx-auto w-full max-w-[20rem]" />
+
+            {/* The to-do sticky keeps the right-hand page from bottoming out
+                under the receipt, and says what I'm actually doing right now. */}
+            <div
+              className="sticky-note sticky-note-pink mx-auto w-full max-w-[15rem] rounded-[2px] px-5 py-4"
+              style={{ transform: "rotate(1.8deg)" }}
+            >
+              <p className="font-mono text-[0.58rem] tracking-[0.16em] text-ink-soft">
+                RIGHT NOW
+              </p>
+              <ul className="mt-2.5 space-y-1.5">
+                {nowList.map((item) => (
+                  <li key={item}>
+                    <CheckLine className="font-hand text-lg leading-tight text-ink">
+                      {item}
+                    </CheckLine>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         }
       />

@@ -5,7 +5,6 @@ import { projects, type Project } from "@/content/site";
 import ProjectPanel from "../ProjectPanel";
 import { accentClasses } from "../accent";
 import Spread, { CheckLine } from "../paper/Spread";
-import CutoutHeading from "../paper/CutoutHeading";
 import { BulldogClip } from "../paper/Hardware";
 import { Tape, Sticker } from "../paper/Decor";
 import { Highlighted, HandNote } from "../paper/Annotation";
@@ -48,7 +47,9 @@ function ProjectEntry({
 
       <CheckLine>
         <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-          <CutoutHeading text={project.title} className="text-xl" variant="chips" />
+          <h3 className="font-display text-xl leading-none text-ink">
+            {project.title}
+          </h3>
           <span className="shrink-0 font-mono text-[0.65rem] tracking-[0.1em] text-ink-faint">
             {project.year}
           </span>
@@ -95,16 +96,16 @@ export default function WorkView() {
               variant="check"
               color="rgba(195,217,176,0.55)"
               rotate={-7}
-              className="-left-5 top-11 h-7 w-24"
+              className="-left-4 -top-3 h-7 w-24"
             />
             <Tape
               variant="stripe"
               color="rgba(245,228,168,0.6)"
               rotate={6}
-              className="-right-5 top-28 h-7 w-20"
+              className="-right-4 -top-2 h-7 w-20"
             />
             <Sticker
-              className="absolute -right-3 bottom-12 hidden h-10 w-10 md:inline-flex"
+              className="absolute bottom-8 right-8 hidden h-10 w-10 md:inline-flex"
               rotate={10}
             >
               <Star className="h-5 w-5 text-butter-ink" />

@@ -224,7 +224,7 @@ body {
    the drop-shadow then traces the resulting scalloped silhouette. */
 .stamp-edge {
   --scallop: 11px;
-  background: color-mix(in srgb, var(--color-paper) 90%, white);
+  background: #fffefb;
   mask:
     radial-gradient(circle var(--scallop) at 50% 0, transparent 99%, #000 100%)
       0 0 / calc(var(--scallop) * 2) 100% repeat-x,
