@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { aboutMe, interests, profile } from "@/content/site";
 import Spread from "../paper/Spread";
 import Collage from "../paper/Collage";
@@ -5,8 +6,8 @@ import CutoutHeading from "../paper/CutoutHeading";
 import { BinderClip } from "../paper/Hardware";
 import { Tape } from "../paper/Decor";
 import { HandNote } from "../paper/Annotation";
-import { Flower } from "../Doodles";
 import { CloudPatch, FlowerPatch } from "../paper/Stickers";
+import PatchSticker from "../paper/PatchSticker";
 
 /* A few prints pulled from across the interests, so the right-hand page reads
    as a page of photos rather than a single portrait. */
@@ -26,7 +27,7 @@ export default function AboutView() {
             rotate={-5}
             className="-left-4 bottom-10 h-7 w-24"
           />
-          <CloudPatch className="pointer-events-none absolute right-6 top-36 hidden h-11 w-14 -rotate-6 md:block" />
+          <CloudPatch className="pointer-events-none absolute bottom-20 left-1/4 hidden h-11 w-14 -rotate-6 md:block" />
           <FlowerPatch className="pointer-events-none absolute bottom-16 left-8 hidden h-10 w-10 rotate-12 md:block" />
         </>
       }
@@ -52,10 +53,11 @@ export default function AboutView() {
         </div>
       }
       right={
-        <div className="flex flex-col gap-7">
-          {/* The portrait. Swap the inner div for:
-              <img src="/me.jpg" alt="" className="h-full w-full object-cover" />
-              after dropping me.jpg into /public */}
+        <div className="relative flex flex-col gap-7">
+          {/* The portrait. me.jpg is a tall 2970x5197 frame, so it's cropped
+              to 4:5 with the focal point held high — a centred crop cuts the
+              head off. next/image resizes and serves webp; the source file is
+              3MB and should never reach a visitor as-is. */}
           <figure className="relative mx-auto w-full max-w-[13rem] rotate-2">
             <BinderClip className="absolute -top-5 right-6 z-10 h-11 w-12 text-coral" />
             <Tape
@@ -65,17 +67,29 @@ export default function AboutView() {
               className="-left-4 top-6 h-6 w-16"
             />
             <div className="rounded-[3px] bg-white p-3 pb-4 shadow-[0_2px_4px_rgba(33,31,28,0.06),0_16px_36px_-22px_rgba(33,31,28,0.4)]">
-              <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-paper-deep">
-                <Flower className="h-12 w-12 text-ink-faint/40" />
-                <span className="absolute bottom-3 px-4 text-center text-[0.6rem] leading-snug text-ink-faint/70">
-                  drop me.jpg in /public
-                </span>
+              <div className="relative aspect-[4/5] overflow-hidden bg-paper-deep">
+                <Image
+                  src="/me.jpg"
+                  alt={`${profile.name}, the author of this site`}
+                  fill
+                  sizes="(max-width: 768px) 60vw, 13rem"
+                  className="object-cover"
+                  style={{ objectPosition: "center 22%" }}
+                  priority
+                />
               </div>
               <figcaption className="mt-3 text-center font-hand text-lg text-ink-soft">
                 a photo of me looking approachable
               </figcaption>
             </div>
           </figure>
+
+          <PatchSticker
+            patch="bunny"
+            width={78}
+            rotate={6}
+            className="absolute -right-2 top-2 hidden md:block"
+          />
 
           {scraps.length > 0 && (
             <div>

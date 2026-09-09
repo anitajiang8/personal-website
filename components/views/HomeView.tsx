@@ -10,6 +10,7 @@ import { Tape, Sticker } from "../paper/Decor";
 import { Circled, HandNote } from "../paper/Annotation";
 import { doodleMap, type DoodleName, Sparkle } from "../Doodles";
 import { FoilStar, SunFace, GinghamHeart } from "../paper/Stickers";
+import PatchSticker from "../paper/PatchSticker";
 
 /* Which doodle and which piece of hardware each card gets. Kept here rather
    than in site.ts so adding an interest never means picking a pin. */
@@ -193,6 +194,13 @@ export default function HomeView() {
                 ))}
               </ul>
             </div>
+
+            <PatchSticker
+              patch="kitten"
+              width={104}
+              rotate={-8}
+              className="-mt-3 ml-2 self-start"
+            />
           </div>
         }
       />
