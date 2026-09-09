@@ -6,9 +6,9 @@ import ProjectPanel from "../ProjectPanel";
 import { accentClasses } from "../accent";
 import Spread, { CheckLine } from "../paper/Spread";
 import { BulldogClip } from "../paper/Hardware";
-import { Tape, Sticker } from "../paper/Decor";
+import { Tape } from "../paper/Decor";
 import { Highlighted, HandNote } from "../paper/Annotation";
-import { Star } from "../Doodles";
+import { LuckyDiamond } from "../paper/Stickers";
 
 const tint = {
   blue: "text-blue",
@@ -104,12 +104,7 @@ export default function WorkView() {
               rotate={6}
               className="-right-4 -top-2 h-7 w-20"
             />
-            <Sticker
-              className="absolute bottom-8 right-8 hidden h-10 w-10 md:inline-flex"
-              rotate={10}
-            >
-              <Star className="h-5 w-5 text-butter-ink" />
-            </Sticker>
+            <LuckyDiamond className="pointer-events-none absolute bottom-7 right-7 hidden h-12 w-12 rotate-6 md:block" />
           </>
         }
         left={

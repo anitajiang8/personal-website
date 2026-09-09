@@ -2,9 +2,10 @@ import { links, profile } from "@/content/site";
 import StampCard, { FillRow } from "../paper/StampCard";
 import CutoutHeading from "../paper/CutoutHeading";
 import { PushPin } from "../paper/Hardware";
-import { Tape, Sticker } from "../paper/Decor";
+import { Tape } from "../paper/Decor";
 import { HandNote } from "../paper/Annotation";
-import { Squiggle, Sparkle, Star } from "../Doodles";
+import { Squiggle } from "../Doodles";
+import { FoilStar, SunFace } from "../paper/Stickers";
 
 /* Strip the scheme so the card reads like something written on a form rather
    than pasted from a browser bar. */
@@ -26,18 +27,8 @@ export default function ContactView() {
           rotate={7}
           className="bottom-16 right-3 z-10 h-7 w-20"
         />
-        <Sticker
-          className="absolute bottom-16 left-6 z-10 hidden h-10 w-10 md:inline-flex"
-          rotate={-10}
-        >
-          <Star className="h-5 w-5 text-butter-ink" />
-        </Sticker>
-        <Sticker
-          className="absolute right-7 top-24 z-10 hidden h-9 w-9 md:inline-flex"
-          rotate={12}
-        >
-          <Sparkle className="h-4 w-4 text-lilac-ink" />
-        </Sticker>
+        <FoilStar className="pointer-events-none absolute bottom-14 left-5 z-10 hidden h-12 w-12 -rotate-12 md:block" />
+        <SunFace className="pointer-events-none absolute right-6 top-20 z-10 hidden h-12 w-12 rotate-6 md:block" />
         <PushPin className="absolute -top-3 left-1/2 z-20 h-9 w-7 -translate-x-1/2 text-coral" />
 
         <StampCard title="CORRESPONDENCE · NO POSTAGE REQUIRED" rotate={-0.8}>

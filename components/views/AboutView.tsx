@@ -3,9 +3,10 @@ import Spread from "../paper/Spread";
 import Collage from "../paper/Collage";
 import CutoutHeading from "../paper/CutoutHeading";
 import { BinderClip } from "../paper/Hardware";
-import { Tape, Sticker } from "../paper/Decor";
+import { Tape } from "../paper/Decor";
 import { HandNote } from "../paper/Annotation";
-import { Flower, Heart } from "../Doodles";
+import { Flower } from "../Doodles";
+import { CloudPatch, FlowerPatch } from "../paper/Stickers";
 
 /* A few prints pulled from across the interests, so the right-hand page reads
    as a page of photos rather than a single portrait. */
@@ -25,12 +26,8 @@ export default function AboutView() {
             rotate={-5}
             className="-left-4 bottom-10 h-7 w-24"
           />
-          <Sticker
-            className="absolute right-7 top-40 hidden h-10 w-10 md:inline-flex"
-            rotate={-12}
-          >
-            <Heart className="h-5 w-5 text-coral-ink" />
-          </Sticker>
+          <CloudPatch className="pointer-events-none absolute right-6 top-36 hidden h-11 w-14 -rotate-6 md:block" />
+          <FlowerPatch className="pointer-events-none absolute bottom-16 left-8 hidden h-10 w-10 rotate-12 md:block" />
         </>
       }
       left={

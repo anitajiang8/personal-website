@@ -8,7 +8,8 @@ import Receipt from "../paper/Receipt";
 import { BulldogClip, PushPin, PaperClip } from "../paper/Hardware";
 import { Tape, Sticker } from "../paper/Decor";
 import { Circled, HandNote } from "../paper/Annotation";
-import { doodleMap, type DoodleName, Sparkle, Star, Heart } from "../Doodles";
+import { doodleMap, type DoodleName, Sparkle } from "../Doodles";
+import { FoilStar, SunFace, GinghamHeart } from "../paper/Stickers";
 
 /* Which doodle and which piece of hardware each card gets. Kept here rather
    than in site.ts so adding an interest never means picking a pin. */
@@ -62,12 +63,12 @@ export default function HomeView() {
               rotate={5}
               className="-right-5 -top-2 h-7 w-24"
             />
-            <Star className="pointer-events-none absolute bottom-24 left-6 hidden h-6 w-6 text-butter-ink/70 md:block" />
-            <Heart className="pointer-events-none absolute bottom-10 right-10 hidden h-5 w-5 text-coral-ink/70 md:block" />
+            <FoilStar className="pointer-events-none absolute -bottom-4 -left-4 z-10 hidden h-12 w-12 -rotate-12 md:block" />
+            <GinghamHeart className="pointer-events-none absolute -bottom-3 right-10 z-10 hidden h-10 w-10 rotate-12 md:block" />
           </>
         }
         left={
-          <>
+          <div className="relative">
             {/* ── the greeting, written out on load ── */}
             <div className="pt-4">
               <div className="relative inline-block">
@@ -104,6 +105,11 @@ export default function HomeView() {
                 </div>
               )}
             </div>
+
+            <SunFace
+              className="settle pointer-events-none absolute right-6 top-4 hidden h-14 w-14 rotate-6 md:block"
+              style={{ animationDelay: "2.4s" }}
+            />
 
             {/* ── the pinned interest cluster ── */}
             <div className="settle mt-2" style={{ animationDelay: "2.3s" }}>
@@ -158,7 +164,7 @@ export default function HomeView() {
                 })}
               </ul>
             </div>
-          </>
+          </div>
         }
         right={
           <div className="settle flex flex-col gap-6" style={{ animationDelay: "2.1s" }}>
