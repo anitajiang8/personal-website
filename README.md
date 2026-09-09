@@ -5,9 +5,13 @@ hand-drawn doodles — but a clean layout underneath so it still reads as a
 serious engineering portfolio.
 
 It is **not a long scrolling page**. The site is one screen at a time: four
-tabs (`hello · work · about · contact`) swap the view, and the landing screen
-is an illustration of me surrounded by the things I enjoy — each object is
-clickable and opens a panel of real photos.
+tabs (`hello · work · about · contact`) swap the view. Each view is a sheet of
+paper laid on a grid notebook background, held down with pastel bulldog clips,
+push pins and paper clips.
+
+The landing is a journal spread: a date strip, a short about-me, a sticky note,
+and a cluster of pinned cards for the things I enjoy — click one to open a
+panel of real photos.
 
 Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind v4.
 
@@ -73,26 +77,45 @@ Two other files are referenced but not committed:
 ## How it's put together
 
 ```
-app/page.tsx              tab state + hash sync; the app shell
-components/TabNav.tsx     the four tabs
-components/views/         one file per screen
-components/scene/         the illustration and its clickable hotspots
-components/Modal.tsx      shared overlay chrome (backdrop, esc, tape)
-components/PhotoPanel     opens from a scene object
-components/ProjectPanel   opens from a project card
+app/page.tsx               tab state + hash sync; the app shell
+components/TabNav.tsx      the four tabs
+components/views/          one file per screen
+components/paper/Hardware  bulldog clips, paper clips, push pins
+components/paper/Annotation the pen circle and the curved arrow
+components/Doodles.tsx     the small hand-drawn icons
+components/Modal.tsx       shared overlay chrome (backdrop, esc, tape)
+components/PhotoPanel      opens from a pinned interest card
+components/ProjectPanel    opens from a project card
 ```
 
-Two things worth knowing before you edit the illustration:
+The paper vocabulary lives in `app/globals.css`:
 
-- Each object's `id` in `DeskScene.tsx` must match an `id` in `interests`.
-- Every hotspot carries a `hit` rectangle. SVG only hit-tests *painted*
-  pixels, so without it you'd have to click exactly on a 2px stroke. If you
-  move an object, move its `hit` box too.
+| Class | What it does |
+| --- | --- |
+| `.sheet` | a page sitting above the grid background |
+| `.ruled` | writing lines, for journal-style blocks |
+| `.sticky-note` | a note, weighted shadow at the bottom edge |
+| `.meta-rule` | the date/topic strip at the top of a page |
+| `.pinned` | straightens and lifts a tilted card on hover |
 
-Colours, fonts and the paper texture are Tailwind v4 theme tokens at the top
-of [`app/globals.css`](app/globals.css). The font CSS variables are set on
-`<html>` (not `<body>`) so the `@theme` block, which resolves at `:root`, can
-see them. All motion is wrapped in a `prefers-reduced-motion` guard.
+Which doodle and which piece of hardware each interest card gets is decided by
+the `dressing` map at the top of
+[`components/views/HomeView.tsx`](components/views/HomeView.tsx) — so adding an
+interest to `site.ts` means adding one line there too.
+
+Note the landing illustration was removed on purpose; there's room for a
+hand-drawn one in the right-hand column of `HomeView` when you draw it.
+
+Colours, fonts, the grid and the paper texture are Tailwind v4 theme tokens at
+the top of [`app/globals.css`](app/globals.css). Two gotchas worth keeping:
+
+- The font CSS variables are set on `<html>`, not `<body>`, so the `@theme`
+  block — which resolves at `:root` — can see them.
+- `.mark-hand` (the highlighter) sets `isolation: isolate`. Its highlight is a
+  `z-index: -1` pseudo-element, which would otherwise paint *behind* an opaque
+  parent like `.sheet` and disappear.
+
+All motion is wrapped in a `prefers-reduced-motion` guard.
 
 ## Deploy
 
