@@ -67,10 +67,6 @@ export default function AboutView() {
       }
       right={
         <div className="relative flex flex-col gap-7">
-          {/* The portrait. me.jpg is a tall 2970x5197 frame, so it's cropped
-              to 4:5 with the focal point held high — a centred crop cuts the
-              head off. next/image resizes and serves webp; the source file is
-              3MB and should never reach a visitor as-is. */}
           <figure className="relative mx-auto w-full max-w-[13rem] rotate-2">
             <BinderClip className="absolute -top-5 right-6 z-10 h-11 w-12 text-coral" />
             <Tape
@@ -87,12 +83,12 @@ export default function AboutView() {
                   fill
                   sizes="(max-width: 768px) 60vw, 13rem"
                   className="object-cover"
-                  style={{ objectPosition: "center 22%" }}
+                  style={{ objectPosition: "center 88%" }}
                   priority
                 />
               </div>
               <figcaption className="mt-3 text-center font-hand text-lg text-ink-soft">
-                a photo of me looking approachable
+                me @ the BTS concert!
               </figcaption>
             </div>
           </figure>

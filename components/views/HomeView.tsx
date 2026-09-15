@@ -36,11 +36,9 @@ const dressing: Record<
   code: { doodle: "spark", pin: "clip", tilt: -2.3, tint: "text-sage", inkTint: "text-sage-ink", offset: "0.5rem" },
 };
 
-/* The right-now list on the sticky note. Short, present tense, three items. */
 const nowList = [
   "applying for Winter 2027",
-  "learning Rust, slowly",
-  "throwing a bowl that stays round",
+  "study study studying!",
 ];
 
 export default function HomeView() {
